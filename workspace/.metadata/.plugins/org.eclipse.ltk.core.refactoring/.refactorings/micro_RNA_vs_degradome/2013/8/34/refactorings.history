@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;help.java&apos; to &apos;overlap_controller/src/org&apos;&#x0A;- Original project: &apos;micro_RNA_vs_degradome&apos;&#x0A;- Destination element: &apos;overlap_controller/src/org&apos;&#x0A;- Original element: &apos;help.java&apos;" description="Copy compilation unit" destination="=overlap_controller/src&lt;org" element1="/src&lt;{help.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1377256205030" units="1" version="1.0"/>
+</session>

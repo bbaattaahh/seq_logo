@@ -1,0 +1,34 @@
+
+public class help {
+
+    public void help_printer (){
+       System.out.println("--------------------------------!!!! HELP !!!!--------------------------------------------------");
+       System.out.println("ABOUT THE AUTHORS\n");
+ 	   System.out.println("This program has written by Tibor Nagy and Henrik Bata in 2013 (ABC - Agricultural Biotechnology Center, Gödöllő, Hungary).");
+    	
+       System.out.println("THE GOAL OF THIS PROGRAM\n\n\n\n");
+
+       System.out.println("The goal is to detect peaks in the micro_RNA_VS_degradome.jar-created-txt-files.");
+    	
+    	
+       System.out.println("\n\n\n\nABOUT THE OUTPUT FILES\n");
+       System.out.println("The program creates two output files. One contains the peaks of mapped the degradomes, and the other one contains \nthe peaks of mapped the micro RNA.");
+       System.out.println("There are three column in both output files. They are contains the folowing datas:");   
+       System.out.println("1. column: The name of the mRNA,");
+       System.out.println("2. column: Pozition of the peak in the sequnce of the mRNA,");
+       System.out.println("3. column: The normalized (to one million read)????....valami lófasz.");
+       System.out.println("\n\n\nTAGS\n\n");
+       System.out.println("-help");
+       System.out.println("-file              REQUIRED | Set the input file.");
+       System.out.println("-save_degradome    OPTIONAL | You can set name and where to save the degradome-peaks output file");
+       System.out.println("-save_micro_RNA    OPTIONAL | You can set name and where to save the micro RNA-peaks output file");
+       System.out.println("\n If you do not give -save_degradome or/and -save_micro_RNA then the output file names");
+       System.out.println("will be created from the nem of the inputfile to the folder of the input file.  Example:");
+       System.out.println("Input file: root1_micro_RNA_vs_degradome.txt\nOutput files: root1_degradome_peaks.txt  ,root1_micro_RNA_peaks.txt");
+
+       System.out.println("\n\nSOME USEFULL MESSAGES\n");
+       System.out.println("This program a part of a series of programs to detect which goal is the micro RNA \n detection without reference.");
+       System.out.println("The previos element of this serial: micro_RNA_VS_degradome.jar ");
+       System.out.println("The out file contains only the local maximas.");
+    }
+}

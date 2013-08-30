@@ -1,0 +1,15 @@
+package org;
+
+public class help {
+
+	public void print_help(){
+		System.out.println("MÉG NINCS KÉSZ!!! SORRY BRO");
+		System.out.println("THE GOAL OF THIS PROGRAM");
+
+		System.out.println("\n\n\nSOME USEFUL NOTES\n\nWith tag -Xmx3G give more memory to the java program, because of the\n big size of the bam files.");
+		System.out.println("Keep calm, the making an output takes a lot of time! :)");
+		
+	}
+	
+	
+}

@@ -1,0 +1,13 @@
+package org_paresnipe_input;
+
+public class main_peresnipe_input {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

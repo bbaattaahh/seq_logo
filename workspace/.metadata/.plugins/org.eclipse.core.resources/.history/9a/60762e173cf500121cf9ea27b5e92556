@@ -1,0 +1,19 @@
+package org.mbk;
+
+public class Run {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Proba elso    = new Proba();
+		Proba masodik = new Proba();
+		
+		elso.a = 20;
+		elso.inc();
+		elso.inc();
+		elso.showCounter();
+		masodik.showCounter();
+	}
+
+}

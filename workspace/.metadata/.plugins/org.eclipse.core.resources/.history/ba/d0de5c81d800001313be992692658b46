@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+
+
+public class Reading_data_from_SAM_file {
+  
+	public ArrayList<Integer> ReadLength_Reader (){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		
+		return t;
+		
+	}
+	
+	
+	
+	public ArrayList<Integer> CigarLen_Reader (){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		
+		return t;
+		
+	}
+	
+	
+	
+	public ArrayList<Integer> CigarString (){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		
+		return t;
+		
+	}
+	
+	
+/*	
+	public ArrayList<Integer> ReadLength_Reader (){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		
+		return t;
+		
+	}
+*/	
+}

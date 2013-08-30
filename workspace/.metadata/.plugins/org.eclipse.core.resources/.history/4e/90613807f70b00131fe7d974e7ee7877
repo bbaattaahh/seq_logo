@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+public class which_RNA_is_good {
+
+	public ArrayList<Boolean> good_RNA(ArrayList <Integer> CigarLen, ArrayList <String> ReferenceName, ArrayList <Integer> len, ArrayList <Integer> ReadLength, ArrayList <Integer> ReferencePoz, ArrayList <String> header){
+        /*
+         * Ennek a program résznek az a feladata, hogy eldöntse, hogy melyik rekordok érdekesek számunkra.
+         * A bam fileban lévő rekordosk számával egyenlő a tömb hossza nem a headerben lévő fájlokéval!!
+         * */
+		
+		
+		ArrayList<Boolean> t =new ArrayList<Boolean>();
+		ArrayList<Integer> ref =new ArrayList<Integer>();  //egy olyan tömb ez ami tertamazza a megfelelő tömb helyen az ott megengedett legnagyobb tászekvencia hosszot...
+        HashMap <String, Integer> header_len=new HashMap <String, Integer>();
+		Integer i,j;
+		
+		System.out.println(ReferenceName.size());
+
+		for(i=0; i<header.size(); i++){                 //Csinálok eg yolyan HashMap-ot amiben tudok hivatkkozni a névra hossz alapjána
+			header_len.put(header.get(i), len.get(i));  //Erre azért van szükség hgyorsítani tudjam a fer tömb feltöltést.  
+		}
+		
+		for (j=0; j<ReferenceName.size(); j++){
+			ref.add(0);
+			}
+	
+		
+		for (j=0; j<ReferenceName.size(); j++){
+				ref.set(j,header_len.get(ReferenceName.get(j)));
+				}
+			
+	    //Ha a CigarLen nem 1 akkor valami gebasz van vele, az egyezéshez vagy többlett vagy kevesebb bázis kell
+		//Így azokkal nem törődünk
+		// Továbbá azokkal a RNA-jkel sem törődünk amellyek nem mappoltak.... 
+		
+		for (i=0; i<CigarLen.size(); i++){
+			System.out.println(CigarLen.get(i));
+
+			if(CigarLen.get(i)==1 && !ReferenceName.equals("*") && ref.get(i)>(ReadLength.get(i)+ReferencePoz.get(i))) {
+//			if(!ReferenceName.equals("*") && ref.get(i)>(ReadLength.get(i)+ReferencePoz.get(i))) {
+				t.add(true);
+				}
+			else {
+				t.add(false);
+				}
+		}
+		
+		System.out.println("Józsi");
+		return t;
+		
+	}
+	
+	
+}

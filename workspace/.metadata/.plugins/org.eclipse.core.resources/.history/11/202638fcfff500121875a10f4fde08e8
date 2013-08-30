@@ -1,0 +1,43 @@
+package org.seq;
+
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class png_maker {
+    public int x;
+    public int y;
+    
+    png_maker(){
+		x = 640;
+		y = 480;
+	}	
+    
+    
+    public void drawImage() throws IOException{
+    
+	BufferedImage image = new BufferedImage(x,y,BufferedImage.TYPE_INT_RGB);
+	Graphics2D g2 = image.createGraphics();
+	Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+	g2.setFont(font);
+	FontMetrics dim = g2.getFontMetrics();
+	g2.draw(new Rectangle(0, 0, 100, 100));
+	g2.drawString("Józsi", 100, 100);
+	
+	ImageIO.write(image, "png", new File("/home/henrik/Feltoltes/test.png"));
+
+    }
+	
+
+
+	private void drow() {
+		// TODO Auto-generated method stub
+		
+	}
+}

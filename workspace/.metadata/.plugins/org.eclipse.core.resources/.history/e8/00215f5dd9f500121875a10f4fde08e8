@@ -1,0 +1,40 @@
+package org.seq;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.seq.scan;
+
+
+
+public class main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	 String thisLine;
+		   	
+		
+	
+	ArrayList<Integer> t = new ArrayList<Integer>();
+	HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
+	
+	StringBuilder buffer = new StringBuilder();
+
+    try {
+        BufferedReader br = new BufferedReader(new FileReader("/home/henrik/Feltoltes/seqlogotest.txt"));
+        while ((thisLine = br.readLine()) != null) { // while loop begins here
+          if (thisLine.charAt(0)=='C') {System.out.println(thisLine);}
+        } // end while 
+      } // end try
+      catch (IOException e) {
+        System.err.println("Error: " + e);
+      }
+	}
+}	
+

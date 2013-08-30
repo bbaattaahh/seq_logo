@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;operetions_with_int_array_BH&apos; to &apos;operations_with_int_array_BH&apos;&#x0A;- Original project: &apos;micro_RNA_vs_degradome&apos;&#x0A;- Original element: &apos;operetions_with_int_array_BH&apos;&#x0A;- Renamed element: &apos;operations_with_int_array_BH&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;operetions_with_int_array_BH&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{operetions_with_int_array_BH.java[operetions_with_int_array_BH" matchStrategy="1" name="operations_with_int_array_BH" qualified="false" references="true" similarDeclarations="false" stamp="1376378613618" textual="false" version="1.0"/>
+</session>

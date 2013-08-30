@@ -1,0 +1,16 @@
+package org;
+
+public class TheTypeOfTheSections {
+	
+	public int one_or_two_end_pont_in_the_other_section (Integer a, Integer b,Integer c,Integer d){
+
+		if (a<=c && b<=d) return 2; 
+		if (a>=c && b>=d) return 2; 
+		
+		if (b<c) return 0;
+		if (d<a) return 0;
+		
+	    return 1;
+	}
+
+}

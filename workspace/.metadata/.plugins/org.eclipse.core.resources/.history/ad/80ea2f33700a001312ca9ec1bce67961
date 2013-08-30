@@ -1,0 +1,258 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+public class main_peak_detektor {
+   
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader bf;
+		String s1="",s2="",s3="",s4="",file="",save_micro_RNA="", save_degradome="";//"/home/henrik/micro_RNA_VS_degradome/teszt_peaks.txt";
+		Integer mode=0,i=0,m=1,counter=0;                                           //Az s1-s4 változókkla szedegetem ki az adatokat az input file-ból
+		Double last_d=0.0,last_m=0.0;                                               //A save_... változókban vannak az output filok nevei.
+		ArrayList<String>mRNA_Name=new ArrayList<String>();                         //Ezekben a dinamikus tömbökben tárolom az esetleges platókat!    
+		ArrayList<Integer>mRNA_poz=new ArrayList<Integer>();                        //mode: ez mutatja meg hogy emelkedik vagy csökken a hupli!
+		ArrayList<Double>norm_degradome=new ArrayList<Double>();
+		ArrayList<Double>norm_micro_RNA=new ArrayList<Double>();
+		help h = null;
+		//BufferedWriter out_m = new BufferedWriter(new FileWriter(save));	
+		String line;
+		
+	 	for (String s: args) {
+	        if (s.equals("-help")){h.help_printer(); System.exit(0);}
+	        if (s.equals("-file"))  {file=args[i+1];}
+	        if (s.equals("-save_degradome"))  {save_degradome =args[i+1];}
+	        if (s.equals("-save_micro_RNA"))  {save_micro_RNA =args[i+1];}
+	        i++;
+	 	}
+	 	
+        //file="/home/henrik/micro_RNA_VS_degradome/root1_micro_RNA_vs_degradome.txt";
+		bf = new BufferedReader(new FileReader(file));
+	 	
+	 	if (file.equals("")) {
+	 		System.out.println("ERROR: '-file' always required");
+	 		System.exit(1);
+	 	}
+	 	
+	 	if (save_degradome.equals("")) {
+	        save_degradome=file.replace("_micro_RNA_vs_degradome.txt", "_peaks_degradome.txt");
+	 	}
+	 	
+	 	if (save_micro_RNA.equals("")) {
+	        save_micro_RNA=file.replace("_micro_RNA_vs_degradome.txt", "_peaks_micro_RNA.txt");
+	 	}
+
+		BufferedWriter out_d = new BufferedWriter(new FileWriter(save_degradome));	
+		BufferedWriter out_m = new BufferedWriter(new FileWriter(save_micro_RNA));		 	
+	 	
+	 	
+		
+		
+		
+	 	
+		while( (line = bf.readLine()) != null){
+			m=1;
+			s1="";
+			s2="";
+			s3="";
+			s4="";
+			//System.out.println(s1+s2+s3+s4);
+			for (i=0; i<line.length(); i++){
+				if (line.charAt(i)==' ') {m++; i++; if (i==line.length()) break; }
+				if (m==1) {s1=s1+line.charAt(i);}
+				if (m==2) {s2=s2+line.charAt(i);}
+				if (m==3) {s3=s3+line.charAt(i);}
+				if (m==4) {s4=s4+line.charAt(i);}
+
+			}
+			
+
+			//System.out.println(s1+s2+s3+s4);
+			mode=0;
+			
+			if (last_d.equals(Double.parseDouble(s3))){
+				//System.out.println(counter+" Stagnál");
+				mode=2;
+			}
+			
+			
+			if (last_d>Double.parseDouble(s3)) {
+				System.out.println(counter+" Csökken");
+				mode=3;
+			}
+			
+			
+			if (last_d<Double.parseDouble(s3)){
+				System.out.println(counter+" Növekszik");
+                mode=1;
+			}
+			counter++;
+			if (Double.parseDouble(s3)!=0.0) {
+				//out_d.write(counter+" "+s1+" "+s2+" "+Double.parseDouble(s3)+"\n");
+				//System.out.println(counter+" "+s1+" "+s2+" "+Double.parseDouble(s3)+"\n");
+			}
+			
+			switch (mode){
+			case 1: //mRNA_Name=new ArrayList<String>();
+			        //mRNA_poz=new ArrayList<Integer>();
+			        //norm_degradome=new ArrayList<Double>();
+			    	
+				    mRNA_Name.clear();
+			        mRNA_poz.clear();
+			        norm_degradome.clear();
+			        
+			        mRNA_Name.add(s1);
+					mRNA_poz.add(Integer.parseInt(s2));
+					norm_degradome.add(Double.parseDouble(s3));
+			        break;
+					
+			case 2:	if (Double.parseDouble(s3)!=0.0){
+				    	mRNA_Name.add(s1);
+				    	mRNA_poz.add(Integer.parseInt(s2));
+				    	norm_degradome.add(Double.parseDouble(s3));
+			        }
+			        break;
+                    
+			case 3: for(i=0; i<mRNA_Name.size(); i++){
+				    		out_d.write(mRNA_Name.get(i)+" "+mRNA_poz.get(i)+" "+norm_degradome.get(i)+"\n");
+			   	            //System.out.println(counter+" "+mRNA_Name.get(i)+" "+mRNA_poz.get(i)+" "+norm_degradome.get(i)+"  "+last_d);  
+		         	}
+	                mRNA_Name.clear();
+	                mRNA_poz.clear();
+	                norm_degradome.clear();
+	                break;
+	         
+			default:  System.out.println("!!!Anyádat!!!");
+	         
+				    
+			}
+			
+			last_d=Double.parseDouble(s3);
+			
+			if (counter % 100000==0) System.out.println(counter);
+
+			
+			
+		}
+
+		
+		
+		
+		counter=0;
+		mRNA_Name.clear();
+	    mRNA_poz.clear();
+	    norm_degradome.clear();
+		bf = new BufferedReader(new FileReader(file));
+		
+		
+		
+		while( (line = bf.readLine()) != null){
+			m=1;
+			s1="";
+			s2="";
+			s3="";
+			s4="";
+			//System.out.println(s1+s2+s3+s4);
+			for (i=0; i<line.length(); i++){
+				if (line.charAt(i)==' ') {m++; i++; if (i==line.length()) break; }
+				if (m==1) {s1=s1+line.charAt(i);}
+				if (m==2) {s2=s2+line.charAt(i);}
+				if (m==3) {s3=s3+line.charAt(i);}
+				if (m==4) {s4=s4+line.charAt(i);}
+
+			}
+			
+
+			mode=0;
+			
+			if (last_m.equals(Double.parseDouble(s4))){
+				//System.out.println(counter+" Stagnál");
+				mode=2;
+			}
+			
+			
+			if (last_m>Double.parseDouble(s4)) {
+				System.out.println(counter+" Csökken");
+				mode=3;
+			}
+			
+			
+			if (last_m<Double.parseDouble(s4)){
+				System.out.println(counter+" Növekszik");
+                mode=1;
+			}
+			counter++;
+			
+			//if (Double.parseDouble(s4)!=0.0) {
+				//out_d.write(counter+" "+s1+" "+s2+" "+Double.parseDouble(s3)+"\n");
+				//System.out.println(counter+" "+s1+" "+s2+" "+Double.parseDouble(s4)+"\n");
+			//}
+			
+			switch (mode){
+			case 1: //mRNA_Name=new ArrayList<String>();
+			        //mRNA_poz=new ArrayList<Integer>();
+			        //norm_degradome=new ArrayList<Double>();
+			    	
+     				mRNA_Name.clear();
+			        mRNA_poz.clear();
+			        norm_micro_RNA.clear();
+			        
+			        mRNA_Name.add(s1);
+					mRNA_poz.add(Integer.parseInt(s2));
+					norm_micro_RNA.add(Double.parseDouble(s4));
+			        break;
+					
+			case 2:	if (Double.parseDouble(s4)!=0.0){
+				    	mRNA_Name.add(s1);
+				    	mRNA_poz.add(Integer.parseInt(s2));
+				    	norm_micro_RNA.add(Double.parseDouble(s4));
+			        }
+                    //System.out.println(Integer.parseInt(s2));
+			        break;
+                    
+			case 3: for(i=1; i<mRNA_Name.size(); i++){
+				    		out_m.write(mRNA_Name.get(i)+" "+mRNA_poz.get(i)+" "+norm_micro_RNA.get(i)+"\n");
+			   	            //System.out.println(counter+" "+mRNA_Name.get(i)+" "+mRNA_poz.get(i)+" "+norm_micro_RNA.get(i)+"  "+last_m);  
+		         	}
+	                mRNA_Name.clear();
+	                mRNA_poz.clear();
+	                norm_micro_RNA.clear();
+	                break;
+	         
+			default:  System.out.println("!!!Anyádat!!!");
+	         
+				    
+			}
+			
+			last_m=Double.parseDouble(s4);
+			
+			if (counter % 100000==0) System.out.println(counter);
+			
+
+			
+			
+		}
+		
+		
+		
+		
+		
+		bf.close();
+
+	    System.out.println(counter);
+		
+	    }
+	
+    
+    
+
+    
+	
+	
+	
+}

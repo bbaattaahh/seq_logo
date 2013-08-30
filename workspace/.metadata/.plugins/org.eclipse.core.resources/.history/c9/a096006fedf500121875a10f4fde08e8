@@ -1,0 +1,18 @@
+package org.seq;
+
+import java.awt.image.BufferedImage;
+
+public class png_maker {
+    public int x;
+    public int y;
+    
+    png_maker(){
+		x = 10000;
+		y = 10000;
+	}	
+    
+    
+    
+    
+	BufferedImage image = new BufferedImage(x,y,BufferedImage.TYPE_INT_RGB);
+}

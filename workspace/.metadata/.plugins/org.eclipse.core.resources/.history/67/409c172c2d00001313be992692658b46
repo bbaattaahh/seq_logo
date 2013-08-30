@@ -1,0 +1,52 @@
+import java.io.File;
+
+import net.sf.samtools.SAMFileHeader;
+import net.sf.samtools.SAMFileReader;
+import net.sf.samtools.SAMFileWriter;
+import net.sf.samtools.SAMFileWriterFactory;
+import net.sf.samtools.SAMLineParser;
+import net.sf.samtools.SAMRecord;
+import java.lang.Object;
+import java.util.ArrayList;
+
+public class main_micro_RNA_vs_degradome {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+        
+		Integer i;
+		ArrayList <String> header =new ArrayList<String>();
+		ArrayList <String> seq =new ArrayList<String>();
+		ArrayList <Integer> len =new ArrayList<Integer>();
+		ArrayList <Integer> first_poz =new ArrayList<Integer>();
+		final File inputSamOrBamFile=new File ("/home/henrik/micro_RNA_VS_degradome/germ2.bam");
+		SAMFileReader.setDefaultValidationStringency(SAMFileReader.ValidationStringency.SILENT);
+		
+		final SAMFileReader inputSam = new SAMFileReader(new File ("/home/henrik/micro_RNA_VS_degradome/germ2.bam"));
+	
+		for (i=0; i<inputSam.getFileHeader().getSequenceDictionary().size(); i++){
+			System.out.println(inputSam.getFileHeader().getSequence(i).getSequenceName());
+            header.add(inputSam.getFileHeader().getSequence(i).getSequenceName());
+            //seq.add(inputSam.getFileHeader().getSequence(i).getId());
+            System.out.println(inputSam.getFileHeader().getTextHeader());
+            
+            len.add(inputSam.getFileHeader().getSequence(i).getSequenceLength());
+		} 
+
+		
+		
+		for (SAMFileHeader.GroupOrder c : SAMFileHeader.GroupOrder.values())
+		    System.out.println(c);
+	
+		System.out.println(inputSam.getFileHeader());
+		System.out.println();
+		
+		
+	}
+
+	
+	
+}

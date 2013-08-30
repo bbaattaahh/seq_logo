@@ -1,0 +1,88 @@
+package org;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class main_peak_overlap {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	@SuppressWarnings({ "null", "resource" })
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		
+		BufferedReader bf_d,bf_m;
+		String s1="",s2="",s3="",file_degradome, file_micro_RNA, file="",save_micro_RNA="", save_degradome="";//"/home/henrik/micro_RNA_VS_degradome/teszt_peaks.txt";
+		String line_d="", line_m="";
+		Integer mode=0,j,i=0,m=1,counter=0;                                           //Az s1-s4 változókkla szedegetem ki az adatokat az input file-ból
+		Double last_d=0.0,last_m=0.0;                                               //A save_... változókban vannak az output filok nevei.
+		ArrayList<String>mRNA_Name=new ArrayList<String>();                         //Ezekben a dinamikus tömbökben tárolom az esetleges platókat!    
+		ArrayList<Integer>mRNA_poz_d=new ArrayList<Integer>();                        //mode: ez mutatja meg hogy emelkedik vagy csökken a hupli!
+		ArrayList<Integer>mRNA_poz_m=new ArrayList<Integer>();
+		ArrayList<Double>norm_degradome=new ArrayList<Double>();
+		ArrayList<Double>norm_micro_RNA=new ArrayList<Double>();
+		HashMap<String, ArrayList<Integer>> HM_degradome=new HashMap<String, ArrayList<Integer>>();
+		HashMap<String, ArrayList<Integer>> HM_micro_RNA=new HashMap<String, ArrayList<Integer>>();
+		pozition_in_external_txt_file_HM HM_maker = new pozition_in_external_txt_file_HM();
+		TheTypeOfTheSections ST=new TheTypeOfTheSections();
+		//help h = null;
+		//BufferedWriter out_m = new BufferedWriter(new FileWriter(save));	
+		String line;
+
+	 	for (String s: args) {
+	        if (s.equals("-help")){/*h.help_printer(); System.exit(0);*/}
+	        if (s.equals("-file"))  {file=args[i+1];}
+	        if (s.equals("-save_degradome"))  {save_degradome =args[i+1];}
+	        if (s.equals("-save_micro_RNA"))  {save_micro_RNA =args[i+1];}
+	        i++;
+	 	}
+	 	
+        //file="/home/henrik/micro_RNA_VS_degradome/root1_micro_RNA_vs_degradome.txt";
+	 	//hogy hogy kell megadni a bemenő fájlok neveit ezt még körül kell hjárni HENRIK ÚR  
+	 	file_degradome="/home/henrik/micro_RNA_VS_degradome/bti_germ_peaks_degradome.txt";
+	 	file_micro_RNA="/home/henrik/micro_RNA_VS_degradome/bti_germ_peaks_micro_RNA.txt";
+	 	
+
+		
+	 	
+	 	//if (save_degradome.equals("")) {
+	    //    save_degradome=file.replace("_micro_RNA_vs_degradome.txt", "_peaks_degradome.txt");
+	 	//}
+	 	
+	 	//if (save_micro_RNA.equals("")) {
+	    //    save_micro_RNA=file.replace("_micro_RNA_vs_degradome.txt", "_peaks_micro_RNA.txt");
+	 	//}
+
+	 	
+    	HM_degradome=HM_maker.get_pozitions(file_degradome);
+	 	HM_micro_RNA=HM_maker.get_pozitions(file_micro_RNA);
+	 	
+	 	System.out.println("Első kiiratás"+HM_degradome.get("comp57940_c0_seq1"));
+	 	
+	 	HM_degradome=HM_maker.telescope_the_int_arrays(HM_degradome);
+	 	HM_micro_RNA=HM_maker.telescope_the_int_arrays(HM_micro_RNA);
+	 	
+	 	System.out.println("JÓZSI  "+HM_degradome.get("comp57940_c0_seq1"));
+	 	System.out.println("JÓZSI  "+HM_micro_RNA.get("comp57940_c0_seq1"));
+
+	 	
+	 	System.out.println(ST.one_or_two_end_pont_in_the_other_section(214, 227, 510, 532));
+	 	
+	 	
+
+		}
+		
+		
+		
+	}
+
+

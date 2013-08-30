@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+
+import net.sf.samtools.SAMFileReader;
+import net.sf.samtools.SAMRecord;
+import net.sf.samtools.SAMRecordIterator;
+
+
+public class Reading_data_from_SAM_file {
+  
+	public ArrayList<Integer> ReadLength_Reader (SAMFileReader inputSam){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		SAMRecordIterator iter = inputSam.iterator();
+		
+        while(iter.hasNext()){
+			SAMRecord rec = iter.next();
+			t.add(rec.getReadLength()); 		
+		}
+		
+        
+		return t;
+		
+	}
+	
+	
+	
+	public ArrayList<Integer> CigarLen_Reader (){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		
+		return t;
+		
+	}
+	
+	
+	
+	public ArrayList<Integer> CigarString (){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		
+		return t;
+		
+	}
+	
+	
+/*	
+	public ArrayList<Integer> ReadLength_Reader (){
+		
+		ArrayList<Integer> t= new ArrayList<Integer>();
+		
+		return t;
+		
+	}
+*/	
+}

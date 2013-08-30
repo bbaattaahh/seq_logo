@@ -1,0 +1,45 @@
+package org_paresnipe_input;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+
+
+public class main_peresnipe_input {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BufferedReader bf;
+		Integer i=0,j,counter=0,counter_orig=0;
+		String line,file_controll="/home/henrik/micro_RNA_VS_degradome/control/bti_germ_degradome.tab";
+		String file_micro_RNA_VS_degradome="/home/henrik/micro_RNA_VS_degradome/bti_germ_micro_RNA_vs_degradome.txt";
+		String save="/home/henrik/micro_RNA_VS_degradome/bti_germ_WhereIsThePoo.txt";
+		bf = new BufferedReader(new FileReader(file_controll));
+		input_line_breaker Breaker=new input_line_breaker();
+		ArrayList <String> str_t =new ArrayList <String>();
+		ArrayList <String> str_t2 =new ArrayList <String>();
+		ArrayList <String> controll_mRNA =new ArrayList <String>();
+		ArrayList <Integer> controll_CutPoz=new ArrayList <Integer>();
+
+		help h=new help();
+
+//-------------Argumentumok lekezelése-----------------------------------------------------
+		
+	 	for (String s: args) {
+	        if (s.equals("-help")){h.print_help(); System.exit(0);}
+	        if (s.equals("-file_controll")) {file_controll=args[i+1];}
+	        if (s.equals("-file_micro_RNA_vs_degradome")) {file_micro_RNA_VS_degradome=args[i+1];}
+	        if (s.equals("-save")) {save=args[i+1];} 
+
+	        i++;
+	 	}
+		
+		
+		
+	}
+
+}

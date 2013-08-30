@@ -1,0 +1,41 @@
+import java.io.File;
+
+import net.sf.samtools.SAMFileHeader;
+import net.sf.samtools.SAMFileReader;
+import net.sf.samtools.SAMFileWriter;
+import net.sf.samtools.SAMFileWriterFactory;
+import net.sf.samtools.SAMLineParser;
+import net.sf.samtools.SAMRecord;
+import java.lang.Object;
+
+public class main_micro_RNA_vs_degradome {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		final File inputSamOrBamFile=new File ("/home/henrik/micro_RNA_VS_degradome/germ2.bam");
+		SAMFileReader.setDefaultValidationStringency(SAMFileReader.ValidationStringency.SILENT);
+		
+		final SAMFileReader inputSam = new SAMFileReader(new File ("/home/henrik/micro_RNA_VS_degradome/germ2.bam"));
+		
+		final SAMFileReader inputSam2 = new SAMFileReader(new File ("/home/henrik/micro_RNA_VS_degradome/germ2.bam"),new File ("/home/henrik/micro_RNA_VS_degradome/germ2.bam.bai"));
+	
+		SAMLineParser SAMLP=new SAMLineParser(inputSam.getFileHeader());
+		//SAMLineParser SAMLP2=new SAMLineParser(inputSam.getFileHeader());
+		
+		for (SAMFileHeader.GroupOrder c : SAMFileHeader.GroupOrder.values())
+		    System.out.println(c);
+	
+		System.out.println(inputSam.getFileHeader());
+		System.out.println(inputSam.getFilePointerSpanningReads());
+		System.out.println(SAMLP);
+		
+		
+	}
+
+	
+	
+}

@@ -1,0 +1,27 @@
+package org.seq;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.seq.scan;
+
+
+
+public class main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	ArrayList<Integer> t = new ArrayList<Integer>();
+	HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
+	
+	StringBuilder buffer = new StringBuilder();
+    
+	scan olvaso = new scan("/home/henrik/Feltoltes/pmid/ki.txt");
+
+		// TODO Auto-generated catch block
+}

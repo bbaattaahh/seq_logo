@@ -1,0 +1,57 @@
+package org.seq;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.seq.scan;
+
+
+
+public class main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	 String thisLine;
+	 Integer i;
+		   	
+		
+	
+	ArrayList<Integer> t;
+	ArrayList<Character> c = new ArrayList<Character>();
+	c.add('A');c.add('C');c.add('G');c.add('T');
+	HashMap<Character, ArrayList<Integer>> hash = new HashMap<Character, ArrayList<Integer>>();
+
+	StringBuilder buffer = new StringBuilder();
+	
+    try {
+        BufferedReader br = new BufferedReader(new FileReader("/home/henrik/Feltoltes/seqlogotest.txt"));
+        while ((thisLine = br.readLine()) != null) { // while loop begins here
+          if (thisLine.charAt(0)=='C') {System.out.println(thisLine);}
+          for(i=0; i<thisLine.length(); i++){
+        	  if(hash.containsKey(thisLine.charAt(i))){
+        		  t=hash.get(thisLine.charAt(i));
+            	  t.add(i, 1);
+        	  }
+        	  else{
+        		  t = new ArrayList<Integer>();
+        		  t.add(i,1);
+        		  hash.put(thisLine.charAt(i),t);
+        	  }
+        	  
+        	  if (hash.containsKey(thisLine.charAt(i))) {hash.put(thisLine.charAt(i), t);}
+          }
+        } // end while
+        System.out.println();
+      } // end try
+        catch (IOException e) {
+        System.err.println("Error: " + e);
+      }
+	}
+}	
+

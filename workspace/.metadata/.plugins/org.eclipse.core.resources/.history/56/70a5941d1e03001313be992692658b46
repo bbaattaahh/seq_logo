@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+
+
+public class which_RNA_is_good {
+
+	public ArrayList<Boolean> good_RNA(ArrayList <Integer> CigarLen){
+		ArrayList<Boolean> t =new ArrayList<Boolean>();
+		Integer i;
+		
+		for (i=0; i<CigarLen.size(); i++){
+			if(CigarLen.get(i)==1) {t.add(true);}
+			else {t.add(false);}
+		}
+		
+		
+		return t;
+		
+	}
+	
+	
+}

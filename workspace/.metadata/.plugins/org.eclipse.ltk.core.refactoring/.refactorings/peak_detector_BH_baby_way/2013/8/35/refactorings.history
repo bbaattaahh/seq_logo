@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;help.java&apos; to &apos;TurnOffTheComputer/src/org_TurnOff&apos;&#x0A;- Original project: &apos;peak_detector_BH_baby_way&apos;&#x0A;- Destination element: &apos;TurnOffTheComputer/src/org_TurnOff&apos;&#x0A;- Original element: &apos;help.java&apos;" description="Copy compilation unit" destination="=TurnOffTheComputer/src&lt;org_TurnOff" element1="/src&lt;{help.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1377536821224" units="1" version="1.0"/>
+</session>

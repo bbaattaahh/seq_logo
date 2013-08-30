@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/peresnipe_input/src/org_paresnipe_input/main_peresnip_input.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org_paresnipe_input.main_peresnip_input"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-file /home/henrik/paresnipinput/srna.fasta -save /home/henrik/paresnipinput/srna_paresnip_input.fasta"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="peresnipe_input"/>
+</launchConfiguration>

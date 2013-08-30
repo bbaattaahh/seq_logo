@@ -1,0 +1,36 @@
+package org;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class main_overlap_controller {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 * @throws InterruptedException 
+	 */
+	public static void main(String[] args) throws IOException, InterruptedException {
+		// TODO Auto-generated method stub
+		BufferedReader bf;
+		String line,file_controll="/home/henrik/micro_RNA_VS_degradome/control/bti_germ_degradome.tab";
+		bf = new BufferedReader(new FileReader(file_controll));
+		System.out.println("Anyádat");
+		input_line_breaker Breaker=new input_line_breaker();
+		ArrayList <String> str_t =new ArrayList <String>();
+		
+		
+		while( ( line = bf.readLine()) != null){
+			str_t=Breaker.braker(line, '\t');
+			//System.out.println(line);
+			//System.out.println(str_t);
+			if (str_t.get(2).matches("no_annot")) System.out.println(line);
+			Thread.sleep( 1000);
+			//System.out.println(line);
+		}
+		
+	}
+
+}

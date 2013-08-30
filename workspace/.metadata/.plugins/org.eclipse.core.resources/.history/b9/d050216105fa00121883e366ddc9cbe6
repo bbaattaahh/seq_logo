@@ -1,0 +1,86 @@
+package org.seq;
+
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+
+public class main {
+
+	/**
+	 * @param args
+	 */
+	@SuppressWarnings("null")
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	 String thisLine;
+	 Integer i=0,n=0,counter=0,start_seq=1;   //n: az egy sorban lévő szekvenciák száma.
+	 ArrayList<Integer> t;         		   	                     //counter: egy oszlopban lévő szekvenciák száma. 
+	 HashMap<Character, ArrayList<Integer>> hash = new HashMap<Character, ArrayList<Integer>>();  //Ebben a hash mapban vannak eltárolva az egyes bázisok gyakoriságai pozíciónként   	
+ 	 Integer lenx=1000; //Majd később a felhasználó által megadható paraméter lesz. Hogy mekkorra legyen a kép hosza 
+     ArrayList<Color> letter_colours= new ArrayList<Color>();
+     Color number_color=Color.black, bg_color=Color.white;
+     
+ 	for (String s: args) {
+        System.out.println(s);
+        if (s.equals("-help")){System.out.println("Igényes 5 pont");}
+        if (s.equals("-bgcolor")){
+        	bg_color=Color.GREEN;//   args[i+1]);
+        	System.out.println("ŐŐŐŐŐŐŐŐŐŐŐŐŐŐ");
+        	}
+        if (s.equals("-numcolor")){
+        	number_color=Color.getColor(args[i+1]);
+        	System.out.println("ŐŐŐŐŐŐŐŐŐŐŐŐŐŐ");
+        	}
+        i++;
+ 	}
+ 	 
+    
+    
+    try {
+        BufferedReader br = new BufferedReader(new FileReader("/home/henrik/Feltoltes/seqlogotest.txt"));
+        while ((thisLine = br.readLine()) != null) { // while loop begins here
+          //System.out.println(thisLine);
+          n=thisLine.length();
+          counter=counter+1;
+          for(i=0; i<thisLine.length(); i++){
+        	  if(hash.containsKey(thisLine.charAt(i))){
+        		  t=hash.get(thisLine.charAt(i));
+            	  t.set(i, t.get(i)+1);
+        	  }
+        	  else{
+        		  t = new ArrayList<Integer>(21);
+        		  for(int j = 0; j < thisLine.length(); j++){
+        			  if(j == i){
+        				  t.add(1);
+        			  }
+        			  else{
+        				  t.add(0);
+        			  }
+        		  }
+        		  hash.put(thisLine.charAt(i),t);
+        	  }
+        	  
+        	  if (hash.containsKey(thisLine.charAt(i))) {hash.put(thisLine.charAt(i), t);}
+          }
+        } // end while
+        System.out.println(hash);
+        
+        png_maker b=new png_maker(); 
+        b.drawImage(hash,n,2400,counter,lenx,start_seq, number_color);
+        
+      } // end try
+        catch (IOException e) {
+        System.err.println("Error: " + e);
+      }
+    
+	}
+
+
+}	
+

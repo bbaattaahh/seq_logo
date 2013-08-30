@@ -1,0 +1,144 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import net.sf.samtools.BAMRecord;
+import net.sf.samtools.SAMFileHeader;
+import net.sf.samtools.SAMFileReader;
+import net.sf.samtools.SAMFileSource;
+import net.sf.samtools.SAMFileSpan;
+import net.sf.samtools.SAMFileWriter;
+import net.sf.samtools.SAMFileWriterFactory;
+import net.sf.samtools.SAMLineParser;
+import net.sf.samtools.SAMRecord;
+import net.sf.samtools.SAMRecordIterator;
+import net.sf.samtools.SAMSequenceDictionary;
+
+import java.lang.Object;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class main_micro_RNA_vs_degradome {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+        
+		Integer i,j,k,l,counter=0;
+		String ref_name_puffer;
+		HashMap <String, ArrayList<Integer>> tomb_degradome = new HashMap <String, ArrayList<Integer>>();
+		HashMap <String, ArrayList<Integer>> tomb_micro_RNA = new HashMap <String, ArrayList<Integer>>();
+		ArrayList <Integer> t =new ArrayList<Integer>();
+		ArrayList <String> header =new ArrayList<String>();
+		ArrayList <String> CigarString =new ArrayList<String>();   //Megmondja hogy milyen volt az egyezés.
+		ArrayList <String> ReferenceName =new ArrayList<String>();
+		ArrayList <Boolean> is_it_degradome =new ArrayList<Boolean>();
+		ArrayList <Boolean> is_it_good_RNA =new ArrayList<Boolean>();
+		ArrayList <Integer> ReferencePoz =new ArrayList<Integer>();
+		ArrayList <Integer> CigarLen =new ArrayList<Integer>();
+		ArrayList <Integer> ReadLength =new ArrayList<Integer>();
+		ArrayList <Integer> len =new ArrayList<Integer>();
+		ArrayList <Integer> degradome =new ArrayList<Integer>();
+		ArrayList <Integer> micro_RNA =new ArrayList<Integer>();
+		which_RNA_is_good a =new which_RNA_is_good();
+		
+		BufferedWriter out = new BufferedWriter(new FileWriter("/home/henrik/micro_RNA_VS_degradome/file.txt"));
+		
+		SAMFileReader.setDefaultValidationStringency(SAMFileReader.ValidationStringency.SILENT);
+		
+		@SuppressWarnings("resource")
+		final SAMFileReader inputSam = new SAMFileReader(new File ("/home/henrik/micro_RNA_VS_degradome/root1.bam"), true);
+
+        
+        SAMRecordIterator iter = inputSam.iterator();
+		
+        while(iter.hasNext()){
+			SAMRecord rec = iter.next();
+			CigarLen.add(rec.getCigarLength()); 		
+			ReadLength.add(rec.getReadLength()); 		
+			ReferenceName.add(rec.getReferenceName());
+			is_it_degradome.add(rec.getSAMString().contains("degradome"));
+			ReferencePoz.add(rec.getReferencePositionAtReadPosition(1));//???
+            //System.out.println(rec.getReferencePositionAtReadPosition(1));
+		}
+
+
+        
+        
+		for (i=0; i<inputSam.getFileHeader().getSequenceDictionary().size(); i++){
+			t.clear();
+            for (l=0; l<inputSam.getFileHeader().getSequence(i).getSequenceLength(); l++){
+            	t.add(0);
+            }
+
+//			for (j=0; j<ReferenceName.size();j++){
+	//			if (ReferenceName.get(j).equals(inputSam.getFileHeader().getSequence(i).getSequenceName())) {
+		//			System.out.println(inputSam.getFileHeader().getSequence(i).getSequenceName());
+			//	}
+	//		}
+
+            tomb_degradome.put(inputSam.getFileHeader().getSequence(i).getSequenceName(), t);
+            System.out.println(tomb_degradome.get(inputSam.getFileHeader().getSequence(i).getSequenceName()).size());
+            tomb_micro_RNA.put(inputSam.getFileHeader().getSequence(i).getSequenceName(), t);
+            
+            //System.out.println(inputSam.getFileHeader().getSequence(i).getSequenceLength());
+            
+		} 
+
+
+		//System.out.println(tomb_degradome.get(inputSam.getFileHeader().getSequence(10).getSequenceName()));
+
+
+
+        
+        
+        
+		is_it_good_RNA=a.good_RNA(CigarLen, ReferenceName);
+		
+		for (j=0; j<inputSam.getFileHeader().getSequenceDictionary().size(); j++){
+			System.out.println(j+"     "+inputSam.getFileHeader().getSequence(j).getSequenceName()+"     "+tomb_degradome.get(inputSam.getFileHeader().getSequence(i).getSequenceName()).size());
+		   
+		}
+			
+		System.out.println("Itt");
+
+		for (j=0; j<ReferenceName.size(); j++){
+			if (is_it_good_RNA.get(j)) {
+				for (i=ReferencePoz.get(j)-1; i<ReferencePoz.get(j)+ReadLength.get(j)-1; i++){
+				    if (is_it_degradome.get(j)){
+				    	System.out.println(j+"  "+i+"   "+(int)(ReferencePoz.get(j)+ReadLength.get(j)-1)+"    "+tomb_degradome.get(ReferenceName.get(j)).size()+" "+ReferenceName.get(j));
+				    	ArrayList<Integer> dummy = tomb_degradome.get(ReferenceName.get(j));
+				    	
+				    	int value = dummy.get(i);
+				    	dummy.set(i, value+1);
+				    	 
+				    	tomb_degradome.put(ReferenceName.get(j), dummy);
+				    	
+				   	}
+				}
+			}	
+		}
+
+				
+				
+		ref_name_puffer=ReferenceName.get(0);
+		
+		System.out.println(tomb_degradome.get(ReferenceName.get(1)));
+		System.out.println(tomb_degradome.get(ReferenceName.get(11)));
+		System.out.println(tomb_degradome.get(ReferenceName.get(12)));
+		System.out.println(tomb_degradome.get(ReferenceName.get(110)));
+		
+		out.close();
+		
+	}
+
+
+
+
+	
+	
+}

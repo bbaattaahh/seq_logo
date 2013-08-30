@@ -1,0 +1,67 @@
+package org;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class main_WhereIsThePoo {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 * @throws NumberFormatException 
+	 */
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		// TODO Auto-generated method stub
+		
+		BufferedReader bf;
+		Integer i=0,j,counter=0,counter_orig=0;
+		String save,line,file_controll="/home/henrik/micro_RNA_VS_degradome/control/bti_germ_degradome.tab";
+		String file_Overlapped="/home/henrik/micro_RNA_VS_degradome/bti_germ_Overlapped.txt";
+		bf = new BufferedReader(new FileReader(file_controll));
+		System.out.println("Anyádat");
+		input_line_breaker Breaker=new input_line_breaker();
+		ArrayList <String> str_t =new ArrayList <String>();
+		ArrayList <String> str_t2 =new ArrayList <String>();
+		ArrayList <String> controll_mRNA =new ArrayList <String>();
+		ArrayList <Integer> controll_CutPoz=new ArrayList <Integer>();
+		ArrayList <String> My_mRNA =new ArrayList <String>();
+		ArrayList<Integer> My_StartCutPoz=new ArrayList <Integer>();
+		ArrayList<Integer> My_EndCutPoz=new ArrayList <Integer>();
+		help h=new help();
+
+		
+		//-------------Controll file beolvasása és elmentése---------------------------------------		
+		
+		bf = new BufferedReader(new FileReader(file_controll));
+		
+		while( ( line = bf.readLine()) != null){
+			str_t=Breaker.braker(line, '\t');
+
+			if (str_t.get(3).matches("0")) {
+				System.out.println(str_t);
+				str_t2=Breaker.braker(str_t.get(0), ' ');
+				controll_mRNA.add(str_t2.get(0));
+				controll_CutPoz.add(Integer.parseInt(str_t.get(1)));
+				counter_orig++;
+			}
+			
+			
+		}
+		
+		bf.close();
+		System.out.println(controll_CutPoz);
+		System.out.println(controll_mRNA);
+		
+		
+		
+		
+		
+		
+		
+
+	}
+
+}

@@ -1,0 +1,54 @@
+package org;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+
+public class pozition_in_external_txt_file_HM {
+
+	HashMap<String, Integer> get_pozitions(File file) throws IOException{
+		
+		HashMap<String, Integer> t=new HashMap<String, Integer>();
+		Integer counter=0,m=0,i,j;
+		String s1="",s2="",s3="",s1_last="",line;
+		
+		BufferedReader bf = new BufferedReader(new FileReader(file));
+		
+		
+		while( ( line = bf.readLine()) != null){
+             
+			
+			
+			m=1;	
+            
+			s1_last=s1;
+			s1="";
+			s2="";
+			s3="";
+			//System.out.println(s1+s2+s3+s4);
+			for (i=0; i<line.length(); i++){
+				if (line.charAt(i)==' ') {m++; i++; if (i==line.length()) break; }
+				if (m==1) {s1=s1+line.charAt(i);}
+				if (m==2) {s2=s2+line.charAt(i);}
+				if (m==3) {s3=s3+line.charAt(i);}
+
+			}
+
+			if (!t.containsKey(s1)) t.put(s1, counter); 
+            counter++;
+
+			
+			if (counter % 100000==0) System.out.println(counter);
+
+			
+			
+		}
+
+		
+		return t;
+	}
+	
+}

@@ -1,0 +1,37 @@
+package org.seq;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.seq.scan;
+
+
+
+public class main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	ArrayList<Integer> t = new ArrayList<Integer>();
+	HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
+	
+	StringBuilder buffer = new StringBuilder();
+
+	
+	BufferedReader bf;
+	
+	bf = new BufferedReader(new FileReader("/home/henrik/Feltoltes/pmid/ki.txt"));
+	String line;
+	while( (line = bf.readLine()) != null){
+			System.out.println(line);
+	
+	bf.close();
+	}
+		
+}

@@ -1,0 +1,25 @@
+import java.io.File;
+
+import net.sf.samtools.SAMFileReader;
+import net.sf.samtools.SAMFileWriter;
+import net.sf.samtools.SAMFileWriterFactory;
+
+
+public class main_micro_RNA_vs_degradome {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		final File inputSamOrBamFile=new File ("/home/henrik/micro_RNA_VS_degradome/germ2.bam.bai");
+		final SAMFileReader inputSam = new SAMFileReader(inputSamOrBamFile);
+		
+		
+        //final SAMFileWriter outputSam = new SAMFileWriterFactory().makeSAMOrBAMWriter(inputSam.getFileHeader(), true, outputSamOrBamFile);
+		System.out.println(inputSam);
+		
+	}
+
+}

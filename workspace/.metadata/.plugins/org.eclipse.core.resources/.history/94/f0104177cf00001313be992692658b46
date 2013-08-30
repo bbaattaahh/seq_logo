@@ -1,0 +1,12 @@
+
+public class Reading_data_from_SAM_file {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

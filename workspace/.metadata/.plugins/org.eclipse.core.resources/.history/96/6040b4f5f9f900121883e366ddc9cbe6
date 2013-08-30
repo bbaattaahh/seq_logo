@@ -1,0 +1,38 @@
+package org.seq;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Position_in_the_queue {
+ 
+  public ArrayList<Character> next_letter(HashMap<Character, ArrayList<Integer>> hash, Integer column){
+	  /*Ez a függvény visszadja a hashmap key amelyik egy adott oszlopban, nagyásg szerint a hanyadik a sorban   ÉRTELMESRE ÁTÍRNI*/
+	  Integer i,j=0,puffer;
+	  Character c_puffer;
+	  ArrayList<Character>c_tomb= new ArrayList<Character>();
+	  ArrayList<Integer>i_tomb= new ArrayList<Integer>();
+	 
+	  for(Character key: hash.keySet()){
+		  c_tomb.add(key);
+		  i_tomb.add(hash.get(key).get(column));
+	  }
+	  
+	  for(i=0; i<hash.size(); i++){
+		  for (j=1; j<hash.size()-i; j++){
+			  if ( i_tomb.get(j-1)<i_tomb.get(j)  || (i_tomb.get(j-1)==i_tomb.get(j) && c_tomb.get(j-1)>c_tomb.get(j))) {
+				 puffer= i_tomb.get(j-1);
+				 i_tomb.set(j-1, i_tomb.get(j));
+				 i_tomb.set(j, puffer);
+
+				 c_puffer= c_tomb.get(j-1);
+				 c_tomb.set(j-1, c_tomb.get(j));
+				 c_tomb.set(j, c_puffer);
+
+			  };
+		  }
+	  }
+	  
+	  return c_tomb;
+  } 	
+	
+}

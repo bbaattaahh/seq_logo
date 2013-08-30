@@ -1,0 +1,105 @@
+package org.seq;
+
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.text.html.StyleSheet;
+
+
+
+public class main {
+
+	/**
+	 * @param args
+	 */
+	@SuppressWarnings({ "null", "static-access" })
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	 String thisLine;
+	 Double rate=2.0;  							//2es típusú logónál megmondja a 100%os betű (Egy adott pozícióban csak egy bázis található!!) hossza és magassága közötti arányt.        
+	 Integer i=0,j,k=0,n=0,counter=0,start_seq=1; 	//n: az egy sorban lévő szekvenciák száma.
+	 ArrayList<Integer> t;         		   	    //counter: egy oszlopban lévő szekvenciák száma. 
+	 HashMap<Character, ArrayList<Integer>> hash = new HashMap<Character, ArrayList<Integer>>();  //Ebben a hash mapban vannak eltárolva az egyes bázisok gyakoriságai pozíciónként   	
+ 	 Integer lenx=1000; //Majd később a felhasználó által megadható paraméter lesz. Hogy mekkorra legyen a kép hosza 
+     ArrayList<Color> letter_colors= new ArrayList<Color>();
+     letter_colors.add(Color.black);
+     Color number_color=Color.black;
+     Color bg_color=Color.white;
+     StyleSheet to_color = new StyleSheet();
+
+    
+     for (String s: args) {k++;}
+     
+ 	for (String s: args) {
+        if (s.equals("-help")){System.out.println("Igényes 5 pont");}
+        if (s.equals("-bgcolor")){
+        	bg_color=to_color.stringToColor(args[i+1]);
+        	System.out.println("ŐŐŐŐŐŐŐŐŐŐŐŐŐŐ");
+           	}
+        if (s.equals("-numcolor")){
+            number_color = to_color.stringToColor(args[i+1]);
+         	System.out.println("Itt vagyok!!");
+         	}
+        if (s.equals("-lettercolor")){
+            letter_colors.clear();
+            j=i+1;
+            while (j!=k){
+            	letter_colors.add(to_color.stringToColor(args[j]));
+            	System.out.println("Itt vagyok!!");
+            	j++; 
+            };
+            //System.out.println(letter_colors.lastIndexOf(letter_colors));
+         	}
+
+
+        i++;
+ 	}
+ 	 
+    
+    
+    try {
+        BufferedReader br = new BufferedReader(new FileReader("/home/henrik/Feltoltes/seqlogotest.txt"));
+        while ((thisLine = br.readLine()) != null) { // while loop begins here
+          //System.out.println(thisLine);
+          n=thisLine.length();
+          counter=counter+1;
+          for(i=0; i<thisLine.length(); i++){
+        	  if(hash.containsKey(thisLine.charAt(i))){
+        		  t=hash.get(thisLine.charAt(i));
+            	  t.set(i, t.get(i)+1);
+        	  }
+        	  else{
+        		  t = new ArrayList<Integer>(21);
+        		  for( j = 0; j < thisLine.length(); j++){
+        			  if(j == i){
+        				  t.add(1);
+        			  }
+        			  else{
+        				  t.add(0);
+        			  }
+        		  }
+        		  hash.put(thisLine.charAt(i),t);
+        	  }
+        	  
+        	  if (hash.containsKey(thisLine.charAt(i))) {hash.put(thisLine.charAt(i), t);}
+          }
+        } // end while
+        System.out.println(hash);
+        
+        png_maker b=new png_maker(); 
+        b.drawImage(hash,n,2400,counter,lenx,start_seq, number_color, bg_color,rate);
+        
+      } // end try
+        catch (IOException e) {
+        System.err.println("Error: " + e);
+      }
+    
+	}
+
+
+}	
+
